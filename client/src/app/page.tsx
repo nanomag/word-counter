@@ -1,5 +1,6 @@
 "use client";
 
+import { countWordsFromContent, countWordsFromFile } from "@/services";
 import { FormEvent, useState } from "react";
 
 export default function Home() {
@@ -13,23 +14,11 @@ export default function Home() {
     const file = formData.get("file");
 
     if (content) {
-      fetch("http://localhost:8000/words/count", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content }),
-      })
+      countWordsFromContent(content)
         .then((res) => res.json())
         .then((data) => setWordsCount(data));
     } else if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      fetch("http://localhost:8000/files/count", {
-        method: "post",
-        body: formData,
-      })
+      countWordsFromFile(file)
         .then((res) => res.json())
         .then((data) => setWordsCount(data));
     }
