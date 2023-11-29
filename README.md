@@ -1,28 +1,28 @@
 # Word counter
 
-Create a small API that counts words which:
+## Server app
 
-The POST endpoint Accepts as input:
+### Setup and install packages
 
-- A common words file
-- Text containing words to count
+1. Go to `server` folder and create a virtual environment: `python3 -m venv venv`
+2. Activate the virtual env: `source venv/bin/activate`
+3. Install the python packages: `pip install -r requirements.txt`
 
-Output a json with:
-The word counts of the input text after the 100 most common English words have been removed, sorted by count descending and formatted nicely.
+### Run app
 
-Example Output:
+1. Go to `server` folder
+2. Execute: `uvicorn main:app --reload`
+3. (Optional) Go to `http://127.0.0.1:8000` in the browser if you want to test the GET endpoints
 
-```
-{
-  "Alice": 10203,
-  "Foo": 12,
-  "Bar": 11,
-  "Baz": 3,
-  "Longword": 1
-}
-```
+## Client app
 
-The application should read a common words file at startup. Here is a list of 1000 common English words that the application should read at startup. https://gist.githubusercontent.com/deekayen/4148741/raw/98d35708fa344717d8eee15d11987de6c8e26d7d/1-1000.txt
+### Setup and install packages
 
-For testing purposes the input text should be the complete text of Alice in Wonderland:
-http://websites.umich.edu/~umfandsf/other/ebooks/alice30.txt
+1. Go to `client` folder
+2. Install the npm packages: `npm install`
+
+### Run app
+
+1. Go to `client` folder
+2. Execute: `npm run dev`
+3. Go to `http://127.0.0.1:3000` in the browser to interact with the UI
