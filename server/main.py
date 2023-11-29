@@ -20,11 +20,9 @@ class RequestBody(BaseModel):
 
 
 @app.post("/words/count")
-async def count_words(body: RequestBody):
-    cleaned_text = body.content.split(" ")
-
+async def count_text_words(body: RequestBody):
     word_counter = WordCounter()
-    words = word_counter.count_words(cleaned_text)
+    words = word_counter.count_words(body.content)
     sorted_count = word_counter.sort_by_count(words)
 
     return sorted_count
