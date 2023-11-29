@@ -10,16 +10,29 @@ export default function Home() {
 
     const formData = new FormData(event.currentTarget);
     const content = formData.get("content");
+    const file = formData.get("file");
 
-    fetch("http://localhost:8000/words/count", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ content }),
-    })
-      .then((res) => res.json())
-      .then((data) => setWordsCount(data));
+    if (content) {
+      fetch("http://localhost:8000/words/count", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content }),
+      })
+        .then((res) => res.json())
+        .then((data) => setWordsCount(data));
+    } else if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      fetch("http://localhost:8000/files/count", {
+        method: "post",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => setWordsCount(data));
+    }
   }
 
   return (
@@ -37,12 +50,27 @@ export default function Home() {
             cols={30}
             rows={10}
             placeholder="Enter your content here..."
-            className="border p-5"
+            className="border p-5 resize-none rounded-md"
           ></textarea>
+
+          <div>
+            <label
+              className="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="file"
+            >
+              Upload file
+            </label>
+            <input
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer bg-gray-50 "
+              id="file"
+              name="file"
+              type="file"
+            />
+          </div>
 
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 py-2"
+            className="text-white bg-blue-700 hover:bg-blue-800 py-2 rounded-md"
           >
             Count
           </button>
