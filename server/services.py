@@ -2,10 +2,11 @@ from constants import EXCLUDED_WORDS
 
 
 class WordCounter:
-    def count_words(self, text):
-        words_counter = {}
+    def count_words(self, content):
+        cleaned_text = content.split(" ")
 
-        for word in text:
+        words_counter = {}
+        for word in cleaned_text:
             cleaned_word = word.strip()
             is_valid_word = self._is_valid_word(cleaned_word)
 
